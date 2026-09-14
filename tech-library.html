@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/sapmc-style.css">
+<link rel="stylesheet" href="assets/sapmc-style.css?v=2">
 
 </head>
 <body>
@@ -29,8 +29,20 @@
       <a href="contact.html" class="">상담문의</a>
     </nav>
     <a class="btn btn-line" href="contact.html" style="padding:11px 22px;font-size:13.5px;">상담 문의</a>
+    <button class="burger" id="burgerBtn" aria-label="메뉴 열기" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="index.html">홈</a>
+  <a href="about-ceo.html">회사소개</a>
+  <a href="product-cartoner1.html">제품소개</a>
+  <a href="tech-library.html">기술자료실</a>
+  <a href="contact.html">상담문의</a>
+  <a class="btn btn-primary mobile-cta" href="contact.html">온라인 견적 상담</a>
+</div>
 
 <section class="page-banner">
   <div class="banner-grid"></div>
@@ -111,6 +123,22 @@
   toTopBtn.addEventListener('click', () => {
     window.scrollTo({top:0, behavior:'smooth'});
   });
+
+  const burgerBtn = document.getElementById('burgerBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  function closeMobileNav(){
+    burgerBtn.classList.remove('open');
+    burgerBtn.setAttribute('aria-expanded','false');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  burgerBtn.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    burgerBtn.classList.toggle('open', isOpen);
+    burgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileNav));
 
   const inquiryForm = document.getElementById('inquiryForm');
   if (inquiryForm) {
